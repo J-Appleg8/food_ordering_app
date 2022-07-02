@@ -4,7 +4,7 @@ import Input from '../../UI/Input';
 
 // We are able to pass amountInputRef into <Input because in the Input component
 // we wrapped the component with React.forwardRef()
-const MealItemForm = props => {
+export default function MealItemForm(props) {
   const [amountIsValid, setAmountIsValid] = useState(true);
   const amountInputRef = useRef();
 
@@ -44,6 +44,4 @@ const MealItemForm = props => {
       {!amountIsValid && <p>Please enter a valid amount (1-5)</p>}
     </form>
   );
-};
-
-export default MealItemForm;
+}

@@ -3,7 +3,7 @@ import mealsImage from '../../assets/meals.jpg';
 import classes from './Header.module.css';
 import HeaderCartButton from './HeaderCartButton';
 
-const Header = props => {
+export default function Header(props) {
   return (
     <>
       <header className={classes.header}>
@@ -15,6 +15,4 @@ const Header = props => {
       </div>
     </>
   );
-};
-
-export default Header;
+}

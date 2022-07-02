@@ -3,15 +3,13 @@ import CartIcon from '../Cart/CartIcon';
 import classes from './HeaderCartButton.module.css';
 import CartContext from '../../store/cart-context';
 
-const HeaderCartButton = props => {
+export default function HeaderCartButton(props) {
   const [btnIsHighlighted, setBtnIsHighlighted] = useState(false);
   const cartCtx = useContext(CartContext);
   const { items } = cartCtx;
   // reduce():
-  // -first argument is a function
-  // second argument is a starting value
-  // The function receives two arguments itself
-  // - curNumber is the number thats carried on after executions
+  // first argument is a function || second argument is a starting value
+  // The function receives two args: curNumber is the number thats carried on after executions
   const numberOfCartItems = items.reduce((curNumber, item) => {
     return curNumber + item.amount;
   }, 0);
@@ -44,6 +42,4 @@ const HeaderCartButton = props => {
       <span className={classes.badge}>{numberOfCartItems}</span>
     </button>
   );
-};
-
-export default HeaderCartButton;
+}

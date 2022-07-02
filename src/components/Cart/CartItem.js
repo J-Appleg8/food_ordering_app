@@ -1,6 +1,6 @@
 import classes from './CartItem.module.css';
 
-const CartItem = (props) => {
+export default function CartItem(props) {
   const price = `$${props.price.toFixed(2)}`;
 
   return (
@@ -18,6 +18,4 @@ const CartItem = (props) => {
       </div>
     </li>
   );
-};
-
-export default CartItem;
+}

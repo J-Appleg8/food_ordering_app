@@ -9,7 +9,7 @@ const defaultCartState = {
 ////////////////////////////////////////////////////////////////////////////////
 // state is the last state snapshot of the state managed by the reducer
 // - action is dispatched by you, and you then have to return a new state snapshot
-const cartReducer = (state, action) => {
+function cartReducer(state, action) {
   ////////////////////////////////////////
   // When cartReducer is called by dispatchCartAction in CartProvider below
   // - We get the item that should be added
@@ -19,12 +19,9 @@ const cartReducer = (state, action) => {
     // Checks if an item is already in the cart
     // Returns the index number of the item if it exists
     // Updates the total amount of items in the cart
-    const updatedTotalAmount =
-      state.totalAmount + action.item.price * action.item.amount;
+    const updatedTotalAmount = state.totalAmount + action.item.price * action.item.amount;
 
-    const existingCartItemIndex = state.items.findIndex(
-      item => item.id === action.item.id
-    );
+    const existingCartItemIndex = state.items.findIndex(item => item.id === action.item.id);
 
     const existingCartItem = state.items[existingCartItemIndex];
     let updatedItems;
@@ -51,9 +48,7 @@ const cartReducer = (state, action) => {
   }
 
   if (action.type === 'REMOVE') {
-    const existingCartItemIndex = state.items.findIndex(
-      item => item.id === action.id
-    );
+    const existingCartItemIndex = state.items.findIndex(item => item.id === action.id);
     const existingItem = state.items[existingCartItemIndex];
     const updatedTotalAmount = state.totalAmount - existingItem.price;
     let updatedItems;
@@ -75,16 +70,13 @@ const cartReducer = (state, action) => {
   }
 
   return defaultCartState;
-};
+}
 
 ////////////////////////////////////////////////////////////////////////////////
 // Calling add item in MealItemForm.js
-const CartProvider = props => {
+export default function CartProvider(props) {
   // State snapshot & Function that allows you to dispatch an action to the reducer
-  const [cartState, dispatchCartAction] = useReducer(
-    cartReducer,
-    defaultCartState
-  );
+  const [cartState, dispatchCartAction] = useReducer(cartReducer, defaultCartState);
   // Add item to cart handler
   const addItemToCartHandler = item => {
     // action is typically an object which as some property that allows you to
@@ -111,11 +103,5 @@ const CartProvider = props => {
     removeItem: removeItemToCartHandler,
   };
 
-  return (
-    <CartContext.Provider value={cartContext}>
-      {props.children}
-    </CartContext.Provider>
-  );
-};
-
-export default CartProvider;
+  return <CartContext.Provider value={cartContext}>{props.children}</CartContext.Provider>;
+}
